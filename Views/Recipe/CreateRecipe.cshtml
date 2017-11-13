@@ -1,0 +1,38 @@
+﻿@using System.Linq
+@model HomeBrewing.Models.RecipeViewModels.CreateRecipeViewModel
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Create Recipe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@ViewData["Title"]</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" />
+                <br />
+            </div>
+            <div class="form-group">
+                <label asp-for="Requirements"></label>
+                <textarea asp-for="Requirements" class="form-control" ></textarea>
+                <br />
+            </div>
+            <div class="form-group" >
+                <label asp-for="Details"></label>
+                <textarea asp-for="Details" class="form-control" ></textarea>
+                <br />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">SEND</button>
+            </div>
+            </form>
+
+</div>
+            </div>

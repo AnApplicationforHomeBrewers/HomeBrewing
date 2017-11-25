@@ -54,7 +54,7 @@ namespace HomeBrewing.Controllers
             using (var db = new DatabaseContext())
             {
 
-                db.Recipe.Add(new CreateRecipeViewModel { UserId = _userManager.GetUserId(User) , Title = model.Title , Details = model.Details , Requirements= model.Requirements });
+                db.Recipe.Add(new CreateRecipeViewModel { UserId = _userManager.GetUserId(User) , Title = model.Title , Details = model.Details , Requirements= model.Requirements, CreatedDate = DateTime.Now });
                 db.SaveChanges();
 
             }

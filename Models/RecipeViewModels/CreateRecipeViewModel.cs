@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeBrewing.Models.RecipeViewModels
@@ -18,5 +19,9 @@ namespace HomeBrewing.Models.RecipeViewModels
        public string Requirements { get; set; }
        [Required]
        public string Details { get; set; }
+        
+       public DateTime CreatedDate { get; set; }
+        
+      public DateTime EditedDate { get; set; }
     }
 }

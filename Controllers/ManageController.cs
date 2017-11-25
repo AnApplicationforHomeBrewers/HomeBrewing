@@ -60,7 +60,9 @@ namespace HomeBrewing.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                Name = user.Name,
+                Surname = user.Surname
             };
 
             return View(model);

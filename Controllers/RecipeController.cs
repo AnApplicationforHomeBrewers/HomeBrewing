@@ -32,7 +32,12 @@ namespace HomeBrewing.Controllers
 
         public IActionResult Recipe()
         {
-            return View();
+            using (var db = new DatabaseContext())
+            {
+
+                return View(db.Recipe.Where(u => u.UserId == _userManager.GetUserId(User)).ToList());
+            }
+                
         }
         [HttpGet]
         public IActionResult CreateRecipe()

@@ -33,11 +33,12 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Recipe" asp-action="Recipe">Recipes</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">My Profile</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
+        
     </nav>
     <div class="container body-content">
         @RenderBody()

@@ -7,6 +7,7 @@ namespace HomeBrewing.Models
     {
 
         public DbSet<CreateRecipeViewModel> Recipe { get; set; }
+        public DbSet<IngredientViewModel> Ingredient { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

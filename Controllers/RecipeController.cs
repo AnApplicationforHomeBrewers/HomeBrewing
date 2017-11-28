@@ -37,7 +37,7 @@ namespace HomeBrewing.Controllers
 
                 return View(db.Recipe.Where(u => u.UserId == _userManager.GetUserId(User)).ToList());
             }
-                
+
         }
         [HttpGet]
         public IActionResult CreateRecipe()
@@ -45,23 +45,47 @@ namespace HomeBrewing.Controllers
             return View();
         }
 
+        
+        public class RecipeModel
+        {
+            public string details { get; set; }
+            public string title { get; set; }
+            public dynamic ingredients { get; set; }
+
+        }
+
         [HttpPost]
-        public IActionResult CreateRecipe(CreateRecipeViewModel model)
+        public IActionResult SaveDatas([FromBody] RecipeModel model)
         {
 
-            
 
-            using (var db = new DatabaseContext())
-            {
+                        using (var db = new DatabaseContext())
+                          {
 
-                db.Recipe.Add(new CreateRecipeViewModel { UserId = _userManager.GetUserId(User) , Title = model.Title , Details = model.Details , Requirements= model.Requirements, CreatedDate = DateTime.Now });
-                db.SaveChanges();
+                              var tempObject = new CreateRecipeViewModel
+                              {
+                                  UserId = _userManager.GetUserId(User),
+                                  Title = model.title,
+                                  Details = model.details,
+                                  CreatedDate = DateTime.Now,
+                                  EditedDate = DateTime.Now
 
-            }
+                              };
+                              db.Recipe.Add(tempObject);
+                              db.SaveChanges();
 
 
 
-            return RedirectToAction("Recipe", "Recipe");
+                              foreach (dynamic data in model.ingredients)
+                              {
+                                  db.Ingredient.Add(new IngredientViewModel { RecipeId = tempObject.Id, Name = data["Name"], Quantity = data["Quantity"], MeasurementUnit = data["MeasurementUnit"] });
+                                  db.SaveChanges();
+                              }
+
+                          }
+                          
+            return View("Recipe/Recipe");
+
         }
     }
 }

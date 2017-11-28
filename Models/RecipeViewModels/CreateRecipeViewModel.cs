@@ -16,12 +16,16 @@ namespace HomeBrewing.Models.RecipeViewModels
        [Required]
        public string Title { get; set; }
        [Required]
-       public string Requirements { get; set; }
-       [Required]
        public string Details { get; set; }
-        
+       [Required]
        public DateTime CreatedDate { get; set; }
         
-      public DateTime EditedDate { get; set; }
+       public DateTime EditedDate { get; set; }
+
+       public int LikesCount { get; set; }
+
+       public int DislikesCount { get; set; }
+
+
     }
 }

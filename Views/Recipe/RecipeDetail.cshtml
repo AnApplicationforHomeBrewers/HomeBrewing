@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "RecipeDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Recipe = ViewBag.Recipe;
+    var Ingredient = ViewBag.Ingredient;
+}
+
+<h2>RecipeDetail</h2>
+<hr />
+
+
+<div class="row">
+<div class="col-md-4"  ></div>
+
+    <div class="col-md-4">
+
+            @{  <b>Title: </b>@Recipe.Title
+                <br />
+                <b>Detail: </b>@Recipe.Details
+               
+                <br />
+                <b>Created Date:</b> @Recipe.CreatedDate
+                <br />
+                <b>Last Edited Date: </b>@Recipe.EditedDate
+
+                <br />
+                <br />
+                <b>Ingredients: </b>
+                <br />
+
+                foreach (var item in Ingredient)
+                {
+                    <b>Name:</b> @item.Name
+                    <b>Quantity:</b>@item.Quantity
+                    @:&nbsp;
+                    @item.MeasurementUnit
+
+                    <br />
+
+
+                }
+
+            }
+        
+        </div>
+
+    <div class="col-md-4"></div>
+
+    </div>
+
+
+
+
+

@@ -34,8 +34,9 @@ namespace HomeBrewing.Controllers
         {
             using (var db = new DatabaseContext())
             {
-
-                return View(db.Recipe.Where(u => u.UserId == _userManager.GetUserId(User)).ToList());
+                var RecipeInfo = db.Recipe.Where(u => u.UserId == _userManager.GetUserId(User)).ToList();
+                ViewBag.Recipe = RecipeInfo;
+                return View();
             }
 
         }
@@ -87,5 +88,26 @@ namespace HomeBrewing.Controllers
             return View("Recipe/Recipe");
 
         }
+
+
+        
+        public IActionResult RecipeDetail()
+        {
+            var RecipeId = Convert.ToInt32(RouteData.Values["id"]);
+
+            using (var db = new DatabaseContext())
+            {
+                ViewBag.Recipe = db.Recipe.Where(i => i.Id == RecipeId).FirstOrDefault();
+                ViewBag.Ingredient = db.Ingredient.Where(i => i.RecipeId == RecipeId).ToList();
+                
+
+            }
+                return View();
+        }
+        
+
+
+
+
     }
 }

@@ -49,7 +49,7 @@
         };
 
         $scope.SaveDatas = function () {
-            var data = { 'details': $scope.RecipeTitle , 'title' : $scope.RecipeDetails, 'ingredients' : $scope.Ingredients };
+            var data = { 'details': $scope.RecipeDetails , 'title' : $scope.RecipeTitle, 'ingredients' : $scope.Ingredients };
             $http.post("../Recipe/SaveDatas", data).then(function (response) { 
 
 
@@ -79,9 +79,12 @@
         <form >
             <div class="form-group" ng-app="MyApp" , ng-controller="MyController">
                 <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" ng-model="RecipeTitle" class="form-control" />
-                    <br />
+                    
+                        <label>Title</label>
+                        <input type="text" ng-model="RecipeTitle" class="form-control" />
+
+                        <br />
+                 
                 </div>
                 <div class="form-group">
                     <label>Details</label>
@@ -92,26 +95,31 @@
                 <div class="col-md-4">
                     <label>Ingredient Name</label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label>Quantity</label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label>MeasurementUnit</label>
                 </div>
 
                 <br />
                 <div ng-repeat="ingredient in Ingredients">
-                    <input type="text" ng-model="ingredient.Name" />
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" ng-model="ingredient.Name" />
+                    </div>
+                    <div class="col-md-3">
 
-                    <input type="text" ng-model="ingredient.Quantity" />
-
-                    <input type="text" ng-model="ingredient.MeasurementUnit"  />
-
-                    <input type="button" ng-click="Remove($index)" value="Remove" />
+                        <input class="form-control"  type="text" ng-model="ingredient.Quantity" />
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" ng-model="ingredient.MeasurementUnit" />
+                    </div>
+                            <input class="btn btn-primary" type="button" ng-click="Remove($index)" value="Remove" />
+                            <br />
                     <br />
-                </div>
-
-                <input type="button" ng-click="Add()" value="Add" />
+                        </div>
+                <br />
+                <input class="btn btn-primary" type="button" ng-click="Add()" value="Add" />
 
 
                 <div class="form-group">
@@ -120,7 +128,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="button"  ng-click="SaveDatas()"  value="SaveDatas" />
+                    <input class="btn btn-success" type="button"  ng-click="SaveDatas()"  value="Save" />
                 </div>
             </div>
 </form>

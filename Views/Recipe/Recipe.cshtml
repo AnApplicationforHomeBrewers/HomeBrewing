@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Recipe";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var RecipeInfo = ViewBag.Recipe;
 }
 
 @model IEnumerable< HomeBrewing.Models.RecipeViewModels.CreateRecipeViewModel>
@@ -13,22 +14,35 @@
 
 <hr />
 
-<table class="table">
-    <tr>
-     <th>Title</th>  
-       <th>Details</th>   
-        <th>Created Date</th> 
-</tr>
-@foreach (var item in Model)
-{
+<div class="row">
 
-    <tr>
-    <td>@Html.DisplayFor(modelItem => item.Title)</td>
-    <td>@Html.DisplayFor(modelItem => item.Details)</td>
-    <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
 
-    </tr>
-}
-    
+    <table class="table table-bordered">
+        <tr>
+            <th>Title</th>
+            <th>Created Date</th>
+            <th>Details</th>
+           
 
-</table>
+        </tr>
+        @foreach (var item in RecipeInfo)
+        {
+
+            <tr>
+                
+                <td> @item.Title</td>
+                <td>@item.CreatedDate</td>
+                <td><a class="btn btn-info" href="/Recipe/RecipeDetail/@item.Id">Details</a></td>
+               
+
+            </tr>
+        }
+
+
+    </table>
+    </div>
+    <div class="col-md-2"></div>
+
+</div>

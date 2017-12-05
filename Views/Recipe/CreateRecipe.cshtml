@@ -17,9 +17,9 @@
         $scope.Ingredients = [
             {
                 
-                Name: " ",
-                Quantity: " ",
-                MeasurementUnit: " "
+                Name: "",
+                Quantity: "",
+                MeasurementUnit: ""
             }
         ];
 
@@ -48,7 +48,18 @@
 
         };
 
-        $scope.SaveDatas = function () {
+        $scope.SaveDatas = function (isValid) {
+
+            var isValid = true;
+            angular.forEach($scope.Ingredients, function (value, key) {
+                if (!value.Name || !value.Quantity || !value.MeasurementUnit ) {
+                    isValid = false;
+
+                }
+
+            } )
+            
+            if (isValid)  {
             var data = { 'details': $scope.RecipeDetails , 'title' : $scope.RecipeTitle, 'ingredients' : $scope.Ingredients };
             $http.post("../Recipe/SaveDatas", data).then(function (response) { 
 
@@ -59,7 +70,12 @@
             $window.location.reload();
 
             
+            }
+            else {
+                alert("Check the values you have entered.");
+                $window.location.reload();
 
+            }
           
 
 
@@ -76,7 +92,7 @@
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form >
+        <form  >
             <div class="form-group" ng-app="MyApp" , ng-controller="MyController">
                 <div class="form-group">
                     
@@ -105,14 +121,15 @@
                 <br />
                 <div ng-repeat="ingredient in Ingredients">
                     <div class="col-md-4">
-                        <input class="form-control" type="text" ng-model="ingredient.Name" />
+                        <input class="form-control" type="text" ng-model="ingredient.Name"  required />
                     </div>
                     <div class="col-md-3">
 
-                        <input class="form-control"  type="text" ng-model="ingredient.Quantity" />
+                        <input class="form-control"  type="number" ng-model="ingredient.Quantity"   step="0.01" required/>
+                        
                     </div>
                     <div class="col-md-3">
-                        <input class="form-control" type="text" ng-model="ingredient.MeasurementUnit" />
+                        <input class="form-control" type="text" ng-model="ingredient.MeasurementUnit" required />
                     </div>
                             <input class="btn btn-primary" type="button" ng-click="Remove($index)" value="Remove" />
                             <br />

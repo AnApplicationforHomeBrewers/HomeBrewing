@@ -13116,33 +13116,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Berkan\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/home/burak/.nuget/packages/": {},
+    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Berkan\\Desktop\\SoftwareEngineering\\HomeBrewing\\HomeBrewing.csproj",
+      "projectUniqueName": "/home/burak/Desktop/home brewing app/HomeBrewing.csproj",
       "projectName": "HomeBrewing",
-      "projectPath": "C:\\Users\\Berkan\\Desktop\\SoftwareEngineering\\HomeBrewing\\HomeBrewing.csproj",
-      "packagesPath": "C:\\Users\\Berkan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Berkan\\Desktop\\SoftwareEngineering\\HomeBrewing\\obj\\",
+      "projectPath": "/home/burak/Desktop/home brewing app/HomeBrewing.csproj",
+      "packagesPath": "/home/burak/.nuget/packages/",
+      "outputPath": "/home/burak/Desktop/home brewing app/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Berkan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/burak/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -13159,6 +13154,15 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "2.0.0",
+            "autoReferenced": true
+          },
+          "Microsoft.AspNetCore.All": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
           "Microsoft.EntityFrameworkCore.Tools": {
             "suppressParent": "All",
             "target": "Package",
@@ -13166,15 +13170,6 @@
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "suppressParent": "All",
-            "target": "Package",
-            "version": "2.0.0"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "2.0",
-            "autoReferenced": true
-          },
-          "Microsoft.AspNetCore.All": {
             "target": "Package",
             "version": "2.0.0"
           }

@@ -10,16 +10,29 @@
 /home/hasan/Desktop/HomeBrewing/obj/Debug/netcoreapp2.0/HomeBrewing.AssemblyInfo.cs
 /home/hasan/Desktop/HomeBrewing/obj/Debug/netcoreapp2.0/HomeBrewing.dll
 /home/hasan/Desktop/HomeBrewing/obj/Debug/netcoreapp2.0/HomeBrewing.pdb
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\bin\Debug\netcoreapp2.0\app.db
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\bin\Debug\netcoreapp2.0\HomeBrewing.deps.json
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\bin\Debug\netcoreapp2.0\HomeBrewing.runtimeconfig.json
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\bin\Debug\netcoreapp2.0\HomeBrewing.runtimeconfig.dev.json
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\bin\Debug\netcoreapp2.0\HomeBrewing.dll
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\bin\Debug\netcoreapp2.0\HomeBrewing.pdb
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\obj\Debug\netcoreapp2.0\HomeBrewing.csprojResolveAssemblyReference.cache
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\obj\Debug\netcoreapp2.0\HomeBrewing.csproj.CoreCompileInputs.cache
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\obj\Debug\netcoreapp2.0\HomeBrewing.AssemblyInfoInputs.cache
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\obj\Debug\netcoreapp2.0\HomeBrewing.AssemblyInfo.cs
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\obj\Debug\netcoreapp2.0\HomeBrewing.dll
-C:\Users\Berkan\Desktop\SoftwareEngineering\HomeBrewing\obj\Debug\netcoreapp2.0\HomeBrewing.pdb
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/bin/Debug/netcoreapp2.0/app.db
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/bin/Debug/netcoreapp2.0/HomeBrewing.deps.json
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/bin/Debug/netcoreapp2.0/HomeBrewing.runtimeconfig.json
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/bin/Debug/netcoreapp2.0/HomeBrewing.runtimeconfig.dev.json
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/bin/Debug/netcoreapp2.0/HomeBrewing.dll
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/bin/Debug/netcoreapp2.0/HomeBrewing.pdb
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/obj/Debug/netcoreapp2.0/HomeBrewing.csprojResolveAssemblyReference.cache
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/obj/Debug/netcoreapp2.0/HomeBrewing.csproj.CoreCompileInputs.cache
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/obj/Debug/netcoreapp2.0/UserSecretsAssemblyInfo.cs
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/obj/Debug/netcoreapp2.0/HomeBrewing.AssemblyInfoInputs.cache
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/obj/Debug/netcoreapp2.0/HomeBrewing.AssemblyInfo.cs
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/obj/Debug/netcoreapp2.0/HomeBrewing.dll
+C:/Users/Berkan/Desktop/SoftwareEngineering/HomeBrewing/obj/Debug/netcoreapp2.0/HomeBrewing.pdb
+/home/burak/Desktop/home brewing app/bin/Debug/netcoreapp2.0/app.db
+/home/burak/Desktop/home brewing app/bin/Debug/netcoreapp2.0/HomeBrewing.deps.json
+/home/burak/Desktop/home brewing app/bin/Debug/netcoreapp2.0/HomeBrewing.runtimeconfig.json
+/home/burak/Desktop/home brewing app/bin/Debug/netcoreapp2.0/HomeBrewing.runtimeconfig.dev.json
+/home/burak/Desktop/home brewing app/bin/Debug/netcoreapp2.0/HomeBrewing.dll
+/home/burak/Desktop/home brewing app/bin/Debug/netcoreapp2.0/HomeBrewing.pdb
+/home/burak/Desktop/home brewing app/obj/Debug/netcoreapp2.0/HomeBrewing.csprojResolveAssemblyReference.cache
+/home/burak/Desktop/home brewing app/obj/Debug/netcoreapp2.0/HomeBrewing.csproj.CoreCompileInputs.cache
+/home/burak/Desktop/home brewing app/obj/Debug/netcoreapp2.0/UserSecretsAssemblyInfo.cs
+/home/burak/Desktop/home brewing app/obj/Debug/netcoreapp2.0/HomeBrewing.AssemblyInfoInputs.cache
+/home/burak/Desktop/home brewing app/obj/Debug/netcoreapp2.0/HomeBrewing.AssemblyInfo.cs
+/home/burak/Desktop/home brewing app/obj/Debug/netcoreapp2.0/HomeBrewing.dll
+/home/burak/Desktop/home brewing app/obj/Debug/netcoreapp2.0/HomeBrewing.pdb

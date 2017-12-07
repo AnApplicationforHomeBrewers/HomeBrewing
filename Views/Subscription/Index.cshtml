@@ -1,0 +1,45 @@
+﻿@using System.Linq
+@model HomeBrewing.Models.SubscriptionViewModels.UserInfoViewModel
+
+
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script type="text/javascript">
+    var app = angular.module('MyApp', [])
+    app.controller('MyController', function ($scope, $window, $http) {
+            
+
+        $scope.Search = function() {
+            var data = { 'NameQuery': $scope.NameQuery };
+            $http.post("../Subscription/Search", data).then(function (response) { 
+
+
+            });
+        }
+    });
+</script>
+
+<h2>Index</h2>
+<form asp-controller= "Subscription" asp-action="Search" method = "get">
+    
+    <div class="form-group">
+                    
+        <label>Search for a user</label>
+        <input type="text" class="form-control" name="NameQuery"/>
+
+        <br />
+                 
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" value="Search" />
+    </div>
+
+</form>

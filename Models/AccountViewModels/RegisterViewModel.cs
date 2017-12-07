@@ -15,6 +15,9 @@ namespace HomeBrewing.Models.AccountViewModels
         [Required]
         [Display(Name = "Surname")]
         public string Surname { get; set; }
+        [Required]
+        [Display(Name = "PrivateAccount")]
+        public int PrivateAccount { get; set; }
 
         [Required]
         [EmailAddress]

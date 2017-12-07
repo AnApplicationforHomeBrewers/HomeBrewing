@@ -62,7 +62,8 @@ namespace HomeBrewing.Controllers
                 IsEmailConfirmed = user.EmailConfirmed,
                 StatusMessage = StatusMessage,
                 Name = user.Name,
-                Surname = user.Surname
+                Surname = user.Surname,
+                PrivateAccount = user.PrivateAccount
             };
 
             return View(model);
@@ -102,6 +103,19 @@ namespace HomeBrewing.Controllers
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
             }
+
+            var privateAccount = user.PrivateAccount;
+            if (model.PrivateAccount != privateAccount)
+            {
+                using (var db = new UserContext())
+                {
+                    HomeBrewing.Models.AccountViewModels.PrivateAccountViewModel tempModel;
+                    tempModel = db.AspNetUsers.First(u => u.UserName == user.Email);
+                    tempModel.PrivateAccount = model.PrivateAccount;
+                    db.SaveChanges();
+                }
+
+                }
 
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));

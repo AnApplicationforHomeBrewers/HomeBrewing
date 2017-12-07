@@ -81,6 +81,7 @@ namespace HomeBrewing.Controllers
                               {
                                   db.Ingredient.Add(new IngredientViewModel { RecipeId = tempObject.Id, Name = data["Name"], Quantity = data["Quantity"], MeasurementUnit = data["MeasurementUnit"] });
                                   db.SaveChanges();
+                                
                               }
 
                           }
@@ -97,12 +98,43 @@ namespace HomeBrewing.Controllers
 
             using (var db = new DatabaseContext())
             {
-                ViewBag.Recipe = db.Recipe.Where(i => i.Id == RecipeId).FirstOrDefault();
+                var recipeObject = db.Recipe.Where(i => i.Id == RecipeId).FirstOrDefault();
+                ViewBag.Recipe = recipeObject;
                 ViewBag.Ingredient = db.Ingredient.Where(i => i.RecipeId == RecipeId).ToList();
-                
+                HomeBrewing.Models.AccountViewModels.PrivateAccountViewModel recipeUser;
+                using (var db2 = new UserContext())
+                {
+                    recipeUser = db2.AspNetUsers.Where(u => u.Id == recipeObject.UserId).FirstOrDefault();
 
+                }
+
+
+                if (recipeUser.PrivateAccount == 1) { 
+                    if (_userManager.GetUserId(User) != recipeObject.UserId) {
+                        var subscriptionObject = db.Subscription.Any(f => f.FollowerUserID == _userManager.GetUserId(User) && f.FollowedUserID == recipeObject.UserId);
+                        if (subscriptionObject)
+                        {
+                            return View();
+                        }
+                        else
+                        {
+                            return View("PermissionDenied");
+                        }
+
+                    }
             }
-                return View();
+            }
+
+            return View();
+
+           
+               
+        }
+
+        public IActionResult PermissionDenied()
+        {
+
+            return View();
         }
         
 

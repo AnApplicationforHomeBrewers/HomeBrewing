@@ -10,32 +10,23 @@
 
 @model IEnumerable< HomeBrewing.Models.SubscriptionViewModels.UserInfoViewModel>
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-<script type="text/javascript">
-    var app = angular.module('MyApp', [])
-    app.controller('MyController', function ($scope, $window, $http) {
-            $scope.Search = function() {
-                $http.post("../Subscription/Search", $scope.NameQuery).then(function (response) { 
-
-
-                });
-            }
-    });
-</script>
-
-<h2>Index</h2>
-
+<h2>Search</h2>
+<form asp-controller= "Subscription" asp-action="Search" method = "get">
+    
     <div class="form-group">
                     
         <label>Search for a user</label>
-        <input type="text" ng-model="NameQuery" class="form-control" />
+        <input type="text" class="form-control" name="NameQuery"/>
 
         <br />
                  
     </div>
+
     <div class="form-group">
-        <input class="btn btn-success" type="button"  ng-click="Search()"  value="Search" />
+        <input class="btn btn-success" type="submit" value="Search" />
     </div>
+
+</form>
 
     <hr/>
 
@@ -49,8 +40,6 @@
             <th>Name</th>
             <th>Surname</th>
             
-           
-
         </tr>
         @foreach (var item in UsersInfo)
         {
@@ -58,6 +47,13 @@
             <tr>
                 <td> @item.Name</td>
                 <td> @item.Surname</td>
+                <td><form asp-controller="Subscription" asp-action="Subscribe" method="post">
+                        <div class="form-group">
+                            <input class="form-control" type="hidden" name="subscribedUserID" value= "@item.Id" />
+                            <input class="btn btn-success" type="submit" value="Subscribe" />
+                        </div>
+                    </form>
+                </td>
                 
             </tr>
         }

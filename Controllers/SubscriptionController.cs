@@ -20,14 +20,15 @@ namespace HomeBrewing.Controllers
     [Authorize]
     public class SubscriptionController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public SubscriptionController(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
         public IActionResult Index()
         {
             return View();
-        }
-
-        public class UserInfoModel{
-            public string NameQuery { get; set; }
-
         }
 
         public IActionResult Search(string NameQuery){
@@ -35,6 +36,19 @@ namespace HomeBrewing.Controllers
                 var users = db.AspNetUsers.Where(u => u.Name == NameQuery).ToList();
                 ViewBag.Users = users;
                 return View();
+            }
+        }
+        [HttpPost]
+        public IActionResult Subscribe (string subscribedUserID){
+            using (var db = new DatabaseContext()){
+                var newSubscription = new SubscriptionInfoViewModel
+                              {
+                                  FollowerUserID = _userManager.GetUserId(User),
+                                  FollowedUserID = subscribedUserID
+                              };
+                              db.Subscription.Add(newSubscription);
+                              db.SaveChanges();
+                return View("Index");
             }
         }
     }

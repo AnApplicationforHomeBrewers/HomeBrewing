@@ -9,6 +9,7 @@ namespace HomeBrewing.Models
 
         public DbSet<CreateRecipeViewModel> Recipe { get; set; }
         public DbSet<IngredientViewModel> Ingredient { get; set; }
+        public DbSet<SubscriptionInfoViewModel> Subscription { get; set; }
         public DbSet<UserInfoViewModel> AspNetUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

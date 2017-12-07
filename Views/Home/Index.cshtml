@@ -11,16 +11,18 @@
 
 <hr />
 
+<h2> Last Recipes</h2>
+
 <div class="row">
 
-    <div class="col-md-2"></div>
+   
     <div class="col-md-8">
 
     <table class="table table-bordered">
         <tr>
             <th>Title</th>
-            <th>Created Date</th>
             <th>Details</th>
+            <th>More Info</th>
            
 
         </tr>
@@ -31,9 +33,14 @@
 
                 <tr>
                     
-                    <td> @recipe.Title</td>
-                    <td>@recipe.CreatedDate</td>
-                    <td><a class="btn btn-info" href="/Recipe/RecipeDetail/@recipe.Id">Details</a></td>
+                    <td>@recipe.Title</td>
+                    @if (recipe.Details.Length > 20){
+                        <td>@recipe.Details.Substring(0,30)...</td>
+                    }
+                    else{
+                        <td>@recipe.Details</td>
+                    }
+                    <td><a class="btn btn-info" href="/Recipe/RecipeDetail/@recipe.Id">More info about this recipe</a></td>
                 
 
                 </tr>
@@ -43,6 +50,6 @@
 
     </table>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4"></div>
 
 </div>

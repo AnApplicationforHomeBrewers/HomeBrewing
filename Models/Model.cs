@@ -11,10 +11,13 @@ namespace HomeBrewing.Models
         public DbSet<IngredientViewModel> Ingredient { get; set; }
         public DbSet<SubscriptionInfoViewModel> Subscription { get; set; }
         public DbSet<UserInfoViewModel> AspNetUsers { get; set; }
+        public DbSet<CommentViewModel> RecipeComment { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=app.db");
         }
+
 
     }
 

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using HomeBrewing.Models;
 using HomeBrewing.Models.RecipeViewModels;
+using HomeBrewing.Models.SubscriptionViewModels;
 
 using HomeBrewing.Services;
 
@@ -122,8 +123,18 @@ namespace HomeBrewing.Controllers
                         }
 
                     }
+                }
+                var commentObject = db.RecipeComment.Where(c => c.RecipeId == RecipeId).ToList();
+                var usernames = new List<String>();
+                foreach (var item in commentObject){
+                    usernames.Add(db.AspNetUsers.Where(u => u.Id == item.UserId).Select(s => s.Name).FirstOrDefault());
+                }
+                ViewBag.UserNames = usernames;
+                ViewBag.Comments = commentObject;
+
             }
-            }
+
+            
 
             return View();
 
@@ -136,8 +147,78 @@ namespace HomeBrewing.Controllers
 
             return View();
         }
-        
 
+        [HttpPost]
+        public IActionResult Comment(string _comment, int _recipeId){
+
+            
+
+            using (var db = new DatabaseContext()){
+                var newComment = new CommentViewModel
+                {
+                    Comment = _comment,
+                    RecipeId = _recipeId,
+                    UserId = _userManager.GetUserId(User)
+                };
+                db.RecipeComment.Add(newComment);
+                db.SaveChanges();
+            
+            }
+
+            return RedirectToAction("RecipeDetail", new { id = _recipeId });
+        }
+        
+        /*[HttpPost]
+        public IActionResult RecipeDetail(string comment){
+            var _RecipeId = Convert.ToInt32(RouteData.Values["id"]);
+
+            using (var db = new DatabaseContext()){
+                var tempObject = new CommentViewModel{
+                    Comment = comment,
+                    UserId = _userManager.GetUserId(User),
+                    RecipeId = _RecipeId,
+                };
+                
+                db.RecipeComment.Add(tempObject);
+                db.SaveChanges();
+            }
+
+            
+
+            using (var db = new DatabaseContext())
+            {
+                var recipeObject = db.Recipe.Where(i => i.Id == _RecipeId).FirstOrDefault();
+                ViewBag.Recipe = recipeObject;
+                ViewBag.Ingredient = db.Ingredient.Where(i => i.RecipeId == _RecipeId).ToList();
+                HomeBrewing.Models.AccountViewModels.PrivateAccountViewModel recipeUser;
+                using (var db2 = new UserContext())
+                {
+                    recipeUser = db2.AspNetUsers.Where(u => u.Id == recipeObject.UserId).FirstOrDefault();
+
+                }
+
+
+                if (recipeUser.PrivateAccount == 1) { 
+                    if (_userManager.GetUserId(User) != recipeObject.UserId) {
+                        var subscriptionObject = db.Subscription.Any(f => f.FollowerUserID == _userManager.GetUserId(User) && f.FollowedUserID == recipeObject.UserId);
+                        if (subscriptionObject)
+                        {
+                            return View();
+                        }
+                        else
+                        {
+                            return View("PermissionDenied");
+                        }
+
+                    }
+                }
+            }
+
+
+            
+
+            return View();
+        }*/
 
 
 

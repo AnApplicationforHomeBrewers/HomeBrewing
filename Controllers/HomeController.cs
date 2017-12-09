@@ -40,6 +40,7 @@ namespace HomeBrewing.Controllers
                 ViewBag.Recipes = RecipesInfo;
                 return View();
             }
+            //return View();
         }
 
 

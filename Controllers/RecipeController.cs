@@ -37,8 +37,64 @@ namespace HomeBrewing.Controllers
             {
                 var RecipeInfo = db.Recipe.Where(u => u.UserId == _userManager.GetUserId(User)).ToList();
                 ViewBag.Recipe = RecipeInfo;
-                return View();
+
+                //Suggested Recipes Query
+                var likedRecipes = db.RecipeLike.Where(u => u.UserId == _userManager.GetUserId(User)).Select(r => r.RecipeId).ToList();
+                var usersLikedRecipes = new List<string>();
+                foreach(var recipe in likedRecipes){
+                    var users = db.RecipeLike.Where(r => r.RecipeId == recipe).Select(u => u.UserId).ToList();
+                    foreach(var user in users){
+                        if((user == _userManager.GetUserId(User)) || (user == usersLikedRecipes.Find(u => u == user)))
+                        {
+                            continue;
+                        }
+                        else 
+                        {
+                            usersLikedRecipes.Add(user);
+                        }
+                    }       
+                }
+                var suggestedRecipes = new List<int>();
+                var suggestedRecipesCounts = new List<int>();
+                var suggestedRecipesDict = new Dictionary<int,int>();
+                foreach (var user in usersLikedRecipes){
+                    var recipes = db.RecipeLike.Where(u => u.UserId == user).Select(r => r.RecipeId).ToList();
+                    foreach(var recipe in recipes){
+                        if((recipe == likedRecipes.Find(r => r == recipe)))
+                        {
+                            continue;
+                        }
+                        else if(recipe == suggestedRecipes.Find(r => r == recipe))
+                        {
+                            suggestedRecipesCounts[suggestedRecipes.FindIndex(r => r == recipe)] += 1;
+                        }
+                        else 
+                        {
+                            suggestedRecipes.Add(recipe);
+                            suggestedRecipesCounts.Add(1);
+                        }
+                    }
+                }
+                for(var i = 0; i < suggestedRecipes.Count; i++)
+                {
+                    suggestedRecipesDict.Add(suggestedRecipes[i],suggestedRecipesCounts[i]);
+                }
+
+                var suggestedRecipesList = suggestedRecipesDict.ToList();
+                suggestedRecipesList.Sort((pair1,pair2) => pair2.Value.CompareTo(pair1.Value));
+                
+                var SuggestedRecipesInfo = new List<CreateRecipeViewModel>();
+                var count = 5;
+                if (suggestedRecipesList.Count < 5){
+                    count = SuggestedRecipesInfo.Count;
+                }
+                for(var i = 0; i < count; i++){
+                    SuggestedRecipesInfo.Add(db.Recipe.Where(r => r.Id == suggestedRecipesList[i].Key).FirstOrDefault());
+                }
+                ViewBag.SuggestedRecipes = SuggestedRecipesInfo;
+                
             }
+            return View();
 
         }
         [HttpGet]

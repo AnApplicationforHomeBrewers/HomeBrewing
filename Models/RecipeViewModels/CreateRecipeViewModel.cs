@@ -21,11 +21,5 @@ namespace HomeBrewing.Models.RecipeViewModels
        public DateTime CreatedDate { get; set; }
         
        public DateTime EditedDate { get; set; }
-
-       public int LikesCount { get; set; }
-
-       public int DislikesCount { get; set; }
-
-
     }
 }

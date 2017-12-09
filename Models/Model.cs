@@ -13,6 +13,7 @@ namespace HomeBrewing.Models
         public DbSet<UserInfoViewModel> AspNetUsers { get; set; }
         public DbSet<CommentViewModel> RecipeComment { get; set; }
         public DbSet<RecipeLikeViewModel> RecipeLike { get; set; }
+        public DbSet<RecipeDislikeViewModel> RecipeDislike { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

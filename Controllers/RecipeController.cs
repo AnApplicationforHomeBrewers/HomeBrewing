@@ -188,6 +188,11 @@ namespace HomeBrewing.Controllers
                 ViewBag.UserNames = usernames;
                 ViewBag.Comments = commentObject;
 
+                var likeCount = db.RecipeLike.Where(r => r.RecipeId == RecipeId).ToList();
+                ViewBag.Likes = likeCount.Count;
+
+                var DislikeCount = db.RecipeDislike.Where(r => r.RecipeId == RecipeId).ToList();
+                ViewBag.Dislikes = DislikeCount.Count;
             }
 
             
@@ -223,58 +228,55 @@ namespace HomeBrewing.Controllers
 
             return RedirectToAction("RecipeDetail", new { id = _recipeId });
         }
-        
-        /*[HttpPost]
-        public IActionResult RecipeDetail(string comment){
-            var _RecipeId = Convert.ToInt32(RouteData.Values["id"]);
 
-            using (var db = new DatabaseContext()){
-                var tempObject = new CommentViewModel{
-                    Comment = comment,
-                    UserId = _userManager.GetUserId(User),
-                    RecipeId = _RecipeId,
-                };
-                
-                db.RecipeComment.Add(tempObject);
-                db.SaveChanges();
-            }
-
-            
-
+        [HttpPost]
+        public IActionResult Like(int recipeID)
+        {
             using (var db = new DatabaseContext())
             {
-                var recipeObject = db.Recipe.Where(i => i.Id == _RecipeId).FirstOrDefault();
-                ViewBag.Recipe = recipeObject;
-                ViewBag.Ingredient = db.Ingredient.Where(i => i.RecipeId == _RecipeId).ToList();
-                HomeBrewing.Models.AccountViewModels.PrivateAccountViewModel recipeUser;
-                using (var db2 = new UserContext())
+                var check = db.RecipeLike.Where(r => r.RecipeId == recipeID && r.UserId == _userManager.GetUserId(User)).ToList();
+                if (check.Count == 0)
                 {
-                    recipeUser = db2.AspNetUsers.Where(u => u.Id == recipeObject.UserId).FirstOrDefault();
-
+                    var recipeId = new RecipeLikeViewModel
+                    {
+                        UserId = _userManager.GetUserId(User),
+                        RecipeId = recipeID
+                    };
+                    db.RecipeLike.Add(recipeId);
                 }
-
-
-                if (recipeUser.PrivateAccount == 1) { 
-                    if (_userManager.GetUserId(User) != recipeObject.UserId) {
-                        var subscriptionObject = db.Subscription.Any(f => f.FollowerUserID == _userManager.GetUserId(User) && f.FollowedUserID == recipeObject.UserId);
-                        if (subscriptionObject)
-                        {
-                            return View();
-                        }
-                        else
-                        {
-                            return View("PermissionDenied");
-                        }
-
-                    }
+                else
+                {
+                    db.RecipeLike.Remove(check[0]);
                 }
+                db.SaveChanges();
             }
+            return RedirectToAction("RecipeDetail", new { id = recipeID });
+        }
 
+        [HttpPost]
+        public IActionResult Dislike(int recipeID)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var check = db.RecipeDislike.Where(r => r.RecipeId == recipeID && r.UserId == _userManager.GetUserId(User)).ToList();
+                if (check.Count == 0)
+                {
+                    var recipeId = new RecipeDislikeViewModel
+                    {
+                        UserId = _userManager.GetUserId(User),
+                        RecipeId = recipeID
+                    };
+                    db.RecipeDislike.Add(recipeId);
+                }
+                else
+                {
+                    db.RecipeDislike.Remove(check[0]);
+                }
+                db.SaveChanges();
+            }
+            return RedirectToAction("RecipeDetail", new { id = recipeID });
+        }
 
-            
-
-            return View();
-        }*/
 
 
 

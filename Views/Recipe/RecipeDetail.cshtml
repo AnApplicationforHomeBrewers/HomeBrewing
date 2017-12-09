@@ -6,6 +6,8 @@
     var Ingredient = ViewBag.Ingredient;
     var UserNames = ViewBag.Usernames;
     var Comments = ViewBag.Comments;
+    var Likes = ViewBag.Likes;
+    var Dislikes = ViewBag.Dislikes;
 }
 
 <h2>RecipeDetail</h2>
@@ -51,6 +53,38 @@
     
 
     </div>
+
+<div class="col-lg-1">
+    <form asp-controller="Recipe" asp-action="Like" method="post">
+        <div class="form-group">
+            <input class="form-control" type="hidden" name="RecipeID" value="@Recipe.Id" />
+            <input class="btn btn-primary" type="submit" value="Like" />
+        </div>
+    </form>
+</div>
+<div class="col-lg-1">
+    <form asp-controller="Recipe" asp-action="Dislike" method="post">
+        <div class="form-group">
+            <input class="form-control" type="hidden" name="RecipeID" value="@Recipe.Id" />
+            <input class="btn btn-primary" type="submit" value="Dislike" />
+        </div>
+    </form>
+</div>
+<br />
+<br />
+<br />
+
+<div class="col-lg-2">
+    <b>Likes: </b> @Likes
+    <br />
+    <b>Dislikes: </b> @Dislikes
+</div>
+
+<br />
+<br />
+<br />
+
+
 
 <div class="row">
 <div class="float-left"  ></div>

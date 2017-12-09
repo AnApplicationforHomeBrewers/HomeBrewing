@@ -13,9 +13,9 @@
 
 
 <div class="row">
-<div class="col-md-4"  ></div>
+<div class="float-left"  ></div>
 
-    <div class="col-md-4">
+    <div class="float-left" >
 
             @{  <b>Title: </b>@Recipe.Title
                 <br />
@@ -42,19 +42,20 @@
 
 
                 }
-
+                <br />
+                <br />
             }
         
         </div>
 
-    <div class="col-md-4"></div>
+    
 
     </div>
 
 <div class="row">
-<div class="col-md-2"  ></div>
-
-    <div class="col-md-8">
+<div class="float-left"  ></div>
+<b>Comments: </b>
+    <div class="float-left">
 
             @{  
                 for(var i=0; i < Comments.Count; i++)
@@ -72,22 +73,23 @@
         
         </div>
 
-    <div class="col-md-2"></div>
+   
 
     </div>
+<br />
+    <form asp-controller="Recipe" asp-action="Comment" method="post">
 
-<form asp-controller="Recipe" asp-action="Comment" method="post">
+        <div class="form-group">
+                     
+            <label>Add your comment:</label>
+            <textarea class="form-control" name="_comment" id="comment"></textarea>
 
-    <div class="form-group">
-                    
-        <label>Comment</label>
-        <input type="text" class="form-control" name="_comment"/>
-
-        <br />
-        <input class="form-control" type="hidden" name="_recipeId" value= "@Recipe.Id" />
-        <input class="btn btn-success" type="submit" value="Send" />
-    </div>
-</form>
+            <br />
+            <input class="form-control" type="hidden" name="_recipeId" value= "@Recipe.Id" />
+            <input class="btn btn-success" type="submit" value="Send" />
+        </div>
+        
+    </form>
 
 
 

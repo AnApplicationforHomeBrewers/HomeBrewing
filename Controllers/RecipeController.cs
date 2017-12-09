@@ -165,24 +165,10 @@ namespace HomeBrewing.Controllers
 
                 }
 
-
-                if (recipeUser.PrivateAccount == 1) { 
-                    if (_userManager.GetUserId(User) != recipeObject.UserId) {
-                        var subscriptionObject = db.Subscription.Any(f => f.FollowerUserID == _userManager.GetUserId(User) && f.FollowedUserID == recipeObject.UserId);
-                        if (subscriptionObject)
-                        {
-                            return View();
-                        }
-                        else
-                        {
-                            return View("PermissionDenied");
-                        }
-
-                    }
-                }
                 var commentObject = db.RecipeComment.Where(c => c.RecipeId == RecipeId).ToList();
                 var usernames = new List<String>();
-                foreach (var item in commentObject){
+                foreach (var item in commentObject)
+                {
                     usernames.Add(db.AspNetUsers.Where(u => u.Id == item.UserId).Select(s => s.Name).FirstOrDefault());
                 }
                 ViewBag.UserNames = usernames;
@@ -193,6 +179,23 @@ namespace HomeBrewing.Controllers
 
                 var DislikeCount = db.RecipeDislike.Where(r => r.RecipeId == RecipeId).ToList();
                 ViewBag.Dislikes = DislikeCount.Count;
+
+                if (recipeUser.PrivateAccount == 1) { 
+                    if (_userManager.GetUserId(User) != recipeObject.UserId) {
+                        var subscriptionObject = db.Subscription.Any(f => f.FollowerUserID == _userManager.GetUserId(User) && f.FollowedUserID == recipeObject.UserId && f.Status==1);
+                        if (subscriptionObject)
+                        {
+
+                            return View();
+                        }
+                        else
+                        {
+                            return View("PermissionDenied");
+                        }
+
+                    }
+                }
+   
             }
 
             

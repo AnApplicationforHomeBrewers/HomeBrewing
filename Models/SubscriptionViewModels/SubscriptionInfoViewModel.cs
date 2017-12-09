@@ -17,6 +17,9 @@ namespace HomeBrewing.Models.SubscriptionViewModels
 
        [Required]
        public string FollowedUserID { get; set; }
+
+       [Required]
+       public int Status { get; set; }
        
 
 

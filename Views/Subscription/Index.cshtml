@@ -8,19 +8,20 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var Users = ViewBag.Followers;
 }
 
 
 <h2>Search</h2>
-<form asp-controller= "Subscription" asp-action="Search" method = "get">
-    
+<form asp-controller="Subscription" asp-action="Search" method="get">
+
     <div class="form-group">
-                    
+
         <label>Search for a user</label>
-        <input type="text" class="form-control" name="NameQuery"/>
+        <input type="text" class="form-control" name="NameQuery" />
 
         <br />
-                 
+
     </div>
 
     <div class="form-group">
@@ -28,3 +29,47 @@
     </div>
 
 </form>
+
+<div class="row">
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Confirm</th>
+                <th>Reject</th>
+
+            </tr>
+@foreach (var data in ViewBag.Followers) { 
+            <tr>
+                <td> @data.Name</td>
+                <td> @data.Surname</td>
+                <td>
+                    <form asp-controller="Subscription" asp-action="ConfirmInvitation" method="post">
+                        <div class="form-group">
+                            <input class="form-control" type="hidden" name="subscriberUserID" value="@data.FollowerUserId" />
+                            <input class="btn btn-success" type="submit" value="Confirm" />
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <form asp-controller="Subscription" asp-action="RejectInvitation" method="post">
+                        <div class="form-group">
+                            <input class="form-control" type="hidden" name="subscriberUserID" value="@data.FollowerUserId" />
+                            <input class="btn btn-success" type="submit" value="Reject" />
+                        </div>
+                    </form>
+                </td>
+
+                </tr>
+}
+            </table>
+
+
+</div>
+    
+    <div class="col-md-2"></div>
+
+    </div>

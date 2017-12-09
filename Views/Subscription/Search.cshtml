@@ -47,6 +47,8 @@
             <tr>
                 <td> @item.Name</td>
                 <td> @item.Surname</td>
+                @if (item.PrivateAccount == 0)
+                {
                 <td><form asp-controller="Subscription" asp-action="Subscribe" method="post">
                         <div class="form-group">
                             <input class="form-control" type="hidden" name="subscribedUserID" value= "@item.Id" />
@@ -54,7 +56,21 @@
                         </div>
                     </form>
                 </td>
-                
+                }
+                else
+                {
+                    <td>
+                        <form asp-controller="Subscription" asp-action="SubscribeToPrivate" method="post">
+                            <div class="form-group">
+                                <input class="form-control" type="hidden" name="subscribedUserID" value="@item.Id" />
+                                <input class="btn btn-success" type="submit" value="SubscribeToPrivateAccount" />
+                            </div>
+                        </form>
+                    </td>
+
+                }
+
+
             </tr>
         }
 

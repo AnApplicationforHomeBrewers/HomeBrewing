@@ -13,6 +13,9 @@ namespace HomeBrewing.Models.SubscriptionViewModels
        public string Name { get; set; }
        [Required]
        public string Surname { get; set; }
+    
+       [Required]
+       public int PrivateAccount { get; set; }
        
 
 

@@ -30,7 +30,7 @@ namespace HomeBrewing.Controllers
         {
             using (var db = new DatabaseContext())
             {
-                var subscribedUsersInfo = db.Subscription.Where(s => s.FollowerUserID == _userManager.GetUserId(User)).ToList();
+                var subscribedUsersInfo = db.Subscription.Where(s => s.FollowerUserID == _userManager.GetUserId(User) && s.Status==1).ToList();
                 var RecipesInfo = new List<List<CreateRecipeViewModel>>();
                 foreach (var item in subscribedUsersInfo)
                 {

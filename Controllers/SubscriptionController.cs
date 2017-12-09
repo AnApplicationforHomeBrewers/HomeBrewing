@@ -28,7 +28,36 @@ namespace HomeBrewing.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            using (var db = new DatabaseContext())
+            {
+                var tempData = (from subsTable in db.Subscription
+                                join userTable in db.AspNetUsers
+                                on subsTable.FollowerUserID equals userTable.Id
+                                where subsTable.FollowedUserID == _userManager.GetUserId(User)
+                                && subsTable.Status == 0
+                                select new { subsTable, userTable }).ToList();
+                List<JoinedTableViewModel> list = new List<JoinedTableViewModel>();
+
+                foreach (var data in tempData)
+                {
+                    JoinedTableViewModel temp = new JoinedTableViewModel();
+                    temp.FollowedUserId = data.subsTable.FollowedUserID;
+                    temp.FollowerUserId = data.subsTable.FollowerUserID;
+                    temp.Name = data.userTable.Name;
+                    temp.Surname = data.userTable.Surname;
+                    temp.Status = data.subsTable.Status;
+                    temp.UserName = data.userTable.Surname;
+                    list.Add(temp);                 
+
+
+                }
+                ViewBag.Followers = list;
+
+                return View();
+            }
+            
+
+
         }
 
         public IActionResult Search(string NameQuery){
@@ -39,16 +68,68 @@ namespace HomeBrewing.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Subscribe (string subscribedUserID){
-            using (var db = new DatabaseContext()){
+        public IActionResult Subscribe(string subscribedUserID)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var isAlreadyAdded = db.Subscription.Any(u => u.FollowerUserID == _userManager.GetUserId(User) && u.FollowedUserID == subscribedUserID);
+                if (!isAlreadyAdded) { 
                 var newSubscription = new SubscriptionInfoViewModel
-                              {
-                                  FollowerUserID = _userManager.GetUserId(User),
-                                  FollowedUserID = subscribedUserID
-                              };
-                              db.Subscription.Add(newSubscription);
-                              db.SaveChanges();
-                return View("Index");
+                {
+                    FollowerUserID = _userManager.GetUserId(User),
+                    FollowedUserID = subscribedUserID,
+                    Status = 1
+                };
+                db.Subscription.Add(newSubscription);
+                db.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult SubscribeToPrivate(string subscribedUserID)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var isAlreadyAdded = db.Subscription.Any(u => u.FollowerUserID == _userManager.GetUserId(User) && u.FollowedUserID == subscribedUserID);
+                if (!isAlreadyAdded)
+                {
+                    var newSubscription = new SubscriptionInfoViewModel
+                    {
+                        FollowerUserID = _userManager.GetUserId(User),
+                        FollowedUserID = subscribedUserID,
+                        Status = 0
+                    };
+                    db.Subscription.Add(newSubscription);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmInvitation(string subscriberUserID)
+        {
+            using (var db = new DatabaseContext())
+            {
+                
+                var findInvitation = db.Subscription.Where(u => u.FollowerUserID == subscriberUserID && u.FollowedUserID == _userManager.GetUserId(User)).FirstOrDefault();
+                findInvitation.Status = 1;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult RejectInvitation(string subscriberUserID)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var findInvitation = db.Subscription.Where(u => u.FollowerUserID == subscriberUserID && u.FollowedUserID == _userManager.GetUserId(User)).FirstOrDefault();
+                db.Subscription.Remove(findInvitation);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
         }
     }

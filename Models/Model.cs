@@ -12,6 +12,7 @@ namespace HomeBrewing.Models
         public DbSet<SubscriptionInfoViewModel> Subscription { get; set; }
         public DbSet<UserInfoViewModel> AspNetUsers { get; set; }
         public DbSet<CommentViewModel> RecipeComment { get; set; }
+        public DbSet<RecipeLikeViewModel> RecipeLike { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

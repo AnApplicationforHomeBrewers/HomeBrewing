@@ -297,7 +297,13 @@ namespace HomeBrewing.Controllers
             
         }
 
-
+    public IActionResult SearchRecipe(string RecipeQuery){
+        using (var db = new DatabaseContext()){
+            var recipes = db.Recipe.Where(r => r.Title == RecipeQuery).ToList();
+            ViewBag.recipes = recipes;
+        }
+        return View();
+    }
 
 
     }

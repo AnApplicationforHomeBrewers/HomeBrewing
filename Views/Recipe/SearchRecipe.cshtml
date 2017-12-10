@@ -1,0 +1,64 @@
+@using System.Linq
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var recipes = ViewBag.recipes;
+}
+
+@model IEnumerable< HomeBrewing.Models.RecipeViewModels.CreateRecipeViewModel>
+
+<h2>Search</h2>
+<form asp-controller= "Recipe" asp-action="SearchRecipe" method = "get">
+    
+    <div class="form-group">
+                    
+        <label>Search for a recipe</label>
+        <input type="text" class="form-control" name="RecipeQuery"/>
+
+        <br />
+                 
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" value="Search" />
+    </div>
+
+</form>
+
+<div class="row">
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Title</th>
+            <th>Created Date</th>
+            <th>Details</th>
+            
+           
+
+        </tr>
+        @foreach (var item in recipes)
+        {
+
+            <tr>
+                
+                <td> @item.Title</td>
+                <td>@item.CreatedDate</td>
+                <td><a class="btn btn-info" href="/Recipe/RecipeDetail/@item.Id">Details</a></td>
+                
+               
+
+            </tr>
+        }
+
+
+    </table>
+    </div>
+    <div class="col-md-2"></div>
+
+</div>

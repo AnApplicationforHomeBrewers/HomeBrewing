@@ -222,7 +222,11 @@ namespace HomeBrewing.Controllers
             {
                 var userInfo = db.AspNetUsers.Where(u => u.Id == userId).FirstOrDefault();
                 ViewBag.UserInfo = userInfo;
-
+            }
+            using (var db = new DatabaseContext())
+            {
+                var recipeInfo = db.Recipe.Where(u => u.UserId == userId).ToList();
+                ViewBag.recipeInfo = recipeInfo;
             }
             return View();
         }

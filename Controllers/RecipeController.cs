@@ -281,6 +281,23 @@ namespace HomeBrewing.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult DeleteRecipe(int RecipeId)
+        {
+            using (var db = new DatabaseContext())
+            {
+
+                var recipe = db.Recipe.Where(u => u.Id == RecipeId).FirstOrDefault();
+                if (_userManager.GetUserId(User) == recipe.UserId) {
+                db.Recipe.Remove(recipe);
+                }
+                db.SaveChanges();
+            }
+            return RedirectToAction("Recipe");
+            
+        }
+
+
 
 
     }

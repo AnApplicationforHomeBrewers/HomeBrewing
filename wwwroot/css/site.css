@@ -41,7 +41,7 @@ input, select, textarea { max-width: 500px; }
         padding-top: 0px;
         padding-left: 0px;}
 
-
+/*
         h1{
             font-size: 30px;
             color: #fff;
@@ -80,7 +80,7 @@ input, select, textarea { max-width: 500px; }
             color: #fff;
             border-bottom: solid 1px rgba(255,255,255,0.1);
           }
-          
+          */
           
           /* demo styles */
           
@@ -96,6 +96,7 @@ input, select, textarea { max-width: 500px; }
           
           
           /* follow me template */
+          
           .made-with-love {
             margin-top: 40px;
             padding: 10px;

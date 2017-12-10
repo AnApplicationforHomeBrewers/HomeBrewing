@@ -67,6 +67,8 @@ namespace HomeBrewing
                     template: "{controller=Recipe}/{action=RecipeDetail}/{id?}"
                     );
 
+                routes.MapRoute("Account","{controller=Subscription}/{action=UserDetail}/{id?}");
+
             });
 
 

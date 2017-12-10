@@ -23,6 +23,7 @@
             <th>Title</th>
             <th>Details</th>
             <th>More Info</th>
+            <th>Created by</th>
            
 
         </tr>
@@ -41,6 +42,7 @@
                         <td>@recipe.Details</td>
                     }
                     <td><a class="btn btn-info" href="/Recipe/RecipeDetail/@recipe.Id">More info about this recipe</a></td>
+                    <td><a href="/Subscription/UserDetail/@recipe.UserId">See Infos</a></td>
                 
 
                 </tr>

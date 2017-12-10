@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "UserDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userInfo = ViewBag.UserInfo;
+}
+<h2>UserDetail</h2>
+<hr />
+<div></div>
+<b>Name : @userInfo.Name</b>
+<br />
+<b>Surname: @userInfo.Surname</b>
+<br />
+<b>Email: @userInfo.UserName</b>
+<br />
+<b>UserId: @userInfo.Id</b>
+
+<br />
+
+@if (userInfo.PrivateAccount == 1)
+{
+    <b>This Account is private</b>
+}
+else
+{
+    <b>This account is public</b>
+
+}

@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "SeeFollow";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var followers = ViewBag.Followers;
+    var followed = ViewBag.Followed;
+}
+<br /><br />
+<div class="row" >
+<div class="col-md-3" > </div>
+
+    <div class="col-md-3">
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Followers</th>
+
+            </tr>
+
+
+            @foreach (var data in followers)
+            {
+                <tr>
+                    <td><a href="/Subscription/UserDetail/@data.Id">@data.Name @data.Surname</a></td>
+                   
+                </tr>
+            }
+
+
+
+        </table>
+
+    </div>
+    <div class="col-md-3">
+        <table class="table table-bordered">
+            <tr>
+                <th>Users you are following</th>
+
+            </tr>
+
+
+            @foreach (var data in followed)
+            {
+                <tr>
+                    <td><a href="/Subscription/UserDetail/@data.Id">@data.Name @data.Surname</a></td>
+                </tr>
+            }
+
+
+
+        </table>
+
+
+
+        </div>
+
+
+
+        <div class="col-md-3"> </div>
+
+    </div>
+

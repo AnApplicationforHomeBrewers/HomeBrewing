@@ -63,7 +63,34 @@ namespace HomeBrewing.Controllers
         public IActionResult Search(string NameQuery){
             using (var db = new DatabaseContext()){
                 var users = db.AspNetUsers.Where(u => u.Name == NameQuery).ToList();
-                ViewBag.Users = users;
+                List<UserInfoViewModel> alreadySent = new List<UserInfoViewModel>();
+                List<UserInfoViewModel> alreadyFriends = new List<UserInfoViewModel>();
+                List<UserInfoViewModel> sendInvitation = new List<UserInfoViewModel>();
+                foreach (var user in users)
+                {
+                    if (user.Id != _userManager.GetUserId(User)) { 
+                 if (db.Subscription.Any(u=> u.FollowerUserID== _userManager.GetUserId(User) && u.FollowedUserID == user.Id && u.Status == 0 ) )  {
+                            alreadySent.Add(user);
+                    }
+
+                 else if (db.Subscription.Any(u => u.FollowerUserID == _userManager.GetUserId(User) && u.FollowedUserID == user.Id && u.Status == 1))
+                    {
+                            alreadyFriends.Add(user);
+                    }
+
+                 else
+                        {
+                            sendInvitation.Add(user);
+
+                        }
+
+                    }
+                }
+
+
+                ViewBag.AlreadySent = alreadySent;
+                ViewBag.AlreadyFriends = alreadyFriends;
+                ViewBag.SendInvitation = sendInvitation;
                 return View();
             }
         }
@@ -132,5 +159,75 @@ namespace HomeBrewing.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpPost]
+        public IActionResult UnFollow(string subscribedUserID)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var cancelrequest = db.Subscription.Where(u => u.FollowerUserID == _userManager.GetUserId(User) && u.FollowedUserID == subscribedUserID).FirstOrDefault();
+
+                db.Subscription.Remove(cancelrequest);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+        
+
+        [HttpPost]
+        public IActionResult CancelRequest(string subscribedUserID)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var cancelRequest = db.Subscription.Where(u => u.FollowerUserID == _userManager.GetUserId(User) && u.FollowedUserID == subscribedUserID).FirstOrDefault();
+               
+                    db.Subscription.Remove(cancelRequest);
+                    db.SaveChanges();
+                }
+            return RedirectToAction("Index");
+        }
+
+       
+        public IActionResult SeeFollow()
+        {
+            using (var db = new DatabaseContext())
+            {
+                var getFollowersId = db.Subscription.Where(u => u.FollowedUserID == _userManager.GetUserId(User) && u.Status == 1).ToList();
+                var getFollowedId = db.Subscription.Where(u => u.FollowerUserID == _userManager.GetUserId(User) && u.Status == 1).ToList();
+                List<UserInfoViewModel> followers = new List<UserInfoViewModel>();
+                List<UserInfoViewModel> followed = new List<UserInfoViewModel>();
+
+                foreach (var user in getFollowersId)
+                {
+                    UserInfoViewModel temp = db.AspNetUsers.Where(u => u.Id == user.FollowerUserID).FirstOrDefault();
+                    followers.Add(temp);
+                }
+
+                foreach(var user in getFollowedId)
+                {
+                    UserInfoViewModel temp = db.AspNetUsers.Where(u => u.Id == user.FollowedUserID).FirstOrDefault();
+                    followed.Add(temp);
+                }
+
+                ViewBag.Followers = followers;
+                ViewBag.Followed = followed;
+                return View();
+            }
+        }
+
+        public IActionResult UserDetail()
+        {
+            var userId = RouteData.Values["id"].ToString();
+            using (var db = new UserContext())
+            {
+                var userInfo = db.AspNetUsers.Where(u => u.Id == userId).FirstOrDefault();
+                ViewBag.UserInfo = userInfo;
+
+            }
+            return View();
+        }
+
+
     }
-}
+    }
+

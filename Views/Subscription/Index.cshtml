@@ -11,6 +11,12 @@
     var Users = ViewBag.Followers;
 }
 
+<br />
+
+<hr />
+
+<h4><a asp-area="" asp-controller="Subscription" asp-action="SeeFollow">See your followers/following!</a></h4>
+<hr />
 
 <h2>Search</h2>
 <form asp-controller="Subscription" asp-action="Search" method="get">
@@ -30,6 +36,7 @@
 
 </form>
 
+
 <div class="row">
 
     <div class="col-md-2"></div>
@@ -44,7 +51,7 @@
             </tr>
 @foreach (var data in ViewBag.Followers) { 
             <tr>
-                <td> @data.Name</td>
+                <td><a href="/Subscription/UserDetail/@data.FollowerUserId">@data.Name</a></td>
                 <td> @data.Surname</td>
                 <td>
                     <form asp-controller="Subscription" asp-action="ConfirmInvitation" method="post">

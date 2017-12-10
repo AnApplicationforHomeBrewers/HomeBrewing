@@ -5,7 +5,9 @@
 @{
     ViewData["Title"] = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var UsersInfo = ViewBag.Users;
+    var alreadySent = ViewBag.AlreadySent;
+    var alreadyFriends = ViewBag.AlreadyFriends;
+    var sendInvitation = ViewBag.SendInvitation;
 }
 
 @model IEnumerable< HomeBrewing.Models.SubscriptionViewModels.UserInfoViewModel>
@@ -41,11 +43,11 @@
             <th>Surname</th>
             
         </tr>
-        @foreach (var item in UsersInfo)
+        @foreach (var item in sendInvitation)
         {
 
             <tr>
-                <td> @item.Name</td>
+                <td><a href="/Subscription/UserDetail/@item.Id">@item.Name</a></td>
                 <td> @item.Surname</td>
                 @if (item.PrivateAccount == 0)
                 {
@@ -70,12 +72,58 @@
 
                 }
 
+         
+
+
+            </tr>
+        }
+
+        @foreach (var item in alreadyFriends)
+        {
+
+            <tr>
+                <td><a href="/Subscription/UserDetail/@item.Id">@item.Name</a></td>
+                <td> @item.Surname</td>
+
+                    <td>
+                        <form asp-controller="Subscription" asp-action="UnFollow" method="post">
+                            <div class="form-group">
+                                <input class="form-control" type="hidden" name="subscribedUserID" value="@item.Id" />
+                                <input class="btn btn-default" type="submit" value="UnFollow" />
+                            </div>
+                        </form>
+                    </td>
+                
+
+
+                </tr>
+        }
+
+        @foreach (var item in alreadySent)
+        {
+
+            <tr>
+                <td><a href="/Subscription/UserDetail/@item.Id">@item.Name</a></td>
+                <td> @item.Surname</td>
+
+                    <td>
+                        <form asp-controller="Subscription" asp-action="CancelRequest" method="post">
+                            <div class="form-group">
+                                <input class="form-control" type="hidden" name="subscribedUserID" value="@item.Id" />
+                                <input class="btn btn-default" type="submit" value="Cancel Request" />
+                            </div>
+                        </form>
+                    </td>
+                
+
 
             </tr>
         }
 
 
-    </table>
+
+
+</table>
     </div>
     <div class="col-md-2"></div>
 
